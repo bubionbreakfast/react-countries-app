@@ -10,8 +10,10 @@ import CountrySelector from '../components/CountrySelector'
         this.state = {
             countries: [],
             data: null,
+            countryName: ''
         };
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleCountrySelect = this.handleCountrySelect.bind(this);
     }
 
     componentDidMount(){
@@ -20,13 +22,18 @@ import CountrySelector from '../components/CountrySelector'
         .then(countries => this.setState({ countries }))
     }
 
+    handleCountrySelect(countryName){
+        this.setState({countryName: countryName})
+    }
+
     render() {
         const { countries } = this.state;
         return (
             <div className="country-container">
                 <h2>Countries</h2>
-                <CountrySelector onCountrySelect={this.handleCountrySelect}></CountrySelector>
+                <CountrySelector countries={this.state.countries} onCountrySelect={this.handleCountrySelect}></CountrySelector>
                 <CountryDetails countries={this.state.countries} ></CountryDetails>
+
 
             </div>
         )

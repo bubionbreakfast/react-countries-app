@@ -6,25 +6,31 @@ constructor(props){
     this.state = {
         name: "",
     }
-    this.handleCountrySelect = this.handleCountrySelect.bind(this);
+    this.handleCountryChange = this.handleCountryChange.bind(this);
 }
 
-handleCountrySelect(event){
+handleCountryChange(event){
     event.preventDefault();
-    const name = this.state.name;
-    this.props.onCountrySelect({name: name});
-    this.setState({name: ''});
+    this.setState({name: event.target.value});
+    this.props.onCountrySelect(event.target.value)
 }
+
+
 
 render(){
+    const countryNodes = this.props.countries.map(( country, index) => {
+        const {name} = country
+        return (
+            <option value={name} key={index}>{name}</option>
+        )
+    })
     return(
-        <select>
-        <option value={this.state.name}></option>
-        <option placeholder="select your country"></option>
-         {/* <option value={this.state.name} */}
-        <option onChange={this.handleCountrySelect}></option>
+        <select name="country" onChange={this.handleCountryChange}>
+            {countryNodes}>
+    
         </select>
     )
+    
 }
 
 }
